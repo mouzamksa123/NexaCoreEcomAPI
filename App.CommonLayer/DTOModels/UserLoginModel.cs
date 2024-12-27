@@ -19,6 +19,8 @@ namespace App.CommonLayer.DTOModels
         public string UserName { get; set; }
         public string token { get; set; }
 
+        public string roleName { get; set; }
+
         public DateTime loginDateTime { get; set; }
     }
 }

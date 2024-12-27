@@ -13,6 +13,6 @@ namespace App.ApplicationLayer.Interface
         Task<UserRegistrationModel> GetByIdAsync(int id);
         Task<UserRegistrationModel> CreateAsync(UserRegistrationModel createProductDto);
 
-
+        Task<UserRegistrationModel> GetUserLoginInfo(UserLoginModel loginModel);
     }
 }

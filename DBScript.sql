@@ -1,4 +1,6 @@
 USE [NexaEComDb]
+
+--Create database  [NexaEComDb]
 GO
 /****** Object:  Table [dbo].[Addresses]    Script Date: 11/28/2024 1:04:38 AM ******/
 SET ANSI_NULLS ON

@@ -56,5 +56,21 @@ namespace App.ApplicationLayer.Implementation
             }
             return new();
         }
+
+        public async Task<UserRegistrationModel> GetUserLoginInfo(UserLoginModel loginModel)
+        {
+            if (loginModel != null)
+            {
+                var model = await _userRepository.GetAllAsync();
+                var userList = _mapper.Map<List<UserRegistrationModel>>(model);
+                if (userList.Any())
+                {
+                    var userModel = userList.Where(x => x.UserName == loginModel.UserName).FirstOrDefault();
+                    return _mapper.Map<UserRegistrationModel>(userModel);
+                }
+            }
+            return new();
+        }
+
     }
 }
