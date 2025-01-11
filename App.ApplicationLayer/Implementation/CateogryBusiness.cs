@@ -22,30 +22,30 @@ namespace App.ApplicationLayer.Implementation
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<CateogryModel>> GetAllCategorysAsync()
+        public async Task<IEnumerable<CategoryDTO>> GetAllCategorysAsync()
         {
             var Categorys = await _categoryRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<CateogryModel>>(Categorys);
+            return _mapper.Map<IEnumerable<CategoryDTO>>(Categorys);
         }
 
-        public async Task<CateogryModel> GetCategoryByIdAsync(int id)
+        public async Task<CategoryDTO> GetCategoryByIdAsync(int id)
         {
             var Category = await _categoryRepository.GetByIdAsync(id);
-            return _mapper.Map<CateogryModel>(Category);
+            return _mapper.Map<CategoryDTO>(Category);
         }
 
-        public async Task<CateogryModel> CreateCategoryAsync(CateogryModel CategoryDto)
+        public async Task<CategoryDTO> CreateCategoryAsync(CategoryDTO CategoryDto)
         {
             var Category = _mapper.Map<Category>(CategoryDto);
             var savedCategory = await _categoryRepository.AddAsync(Category);
-            return _mapper.Map<CateogryModel>(savedCategory);
+            return _mapper.Map<CategoryDTO>(savedCategory);
         }
 
-        public async Task<CateogryModel> UpdateCategoryAsync(CateogryModel CategoryDto)
+        public async Task<CategoryDTO> UpdateCategoryAsync(CategoryDTO CategoryDto)
         {
             var Category = _mapper.Map<Category>(CategoryDto);
             var res = await _categoryRepository.UpdateAsync(Category);
-            return _mapper.Map<CateogryModel>(res);
+            return _mapper.Map<CategoryDTO>(res);
         }
 
         public async Task<bool> DeleteCategoryAsync(int id)

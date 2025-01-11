@@ -56,12 +56,12 @@ namespace NexaComAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> CreateBrand([FromBody] BrandModel BrandDto)
+        public async Task<IActionResult> CreateBrand([FromBody]BrandDTO model)
         {
-            var result = await _BrandBusiness.CreateBrandAsync(BrandDto);
+            var result = await _BrandBusiness.CreateBrandAsync(model);
             if (result != null)
             {
-                return CreatedAtAction(nameof(GetBrandById), new { id = BrandDto.BrandId }, BrandDto);
+                return CreatedAtAction(nameof(GetBrandById), new { id = model.Id}, model);
             }
             return BadRequest();
         }
@@ -75,9 +75,9 @@ namespace NexaComAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> UpdateBrand(int id, [FromBody]BrandModel BrandDto)
+        public async Task<IActionResult> UpdateBrand(int id, [FromBody]BrandDTO BrandDto)
         {
-            if (id != BrandDto.BrandId)
+            if (id != BrandDto.Id)
             {
                 return BadRequest();
             }

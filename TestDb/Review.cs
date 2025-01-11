@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TestDb.Models;
+namespace TestDb;
 
-public partial class OrderItem
+public partial class Review
 {
-    public int OrderItemId { get; set; }
-
-    public int OrderId { get; set; }
+    public int ReviewId { get; set; }
 
     public int ProductId { get; set; }
 
-    public int Quantity { get; set; }
+    public int UserId { get; set; }
 
-    public decimal PricePerUnit { get; set; }
+    public int Rating { get; set; }
+
+    public string Comment { get; set; } = null!;
 
     public bool IsActive { get; set; }
 
@@ -25,7 +25,7 @@ public partial class OrderItem
 
     public int UpdatedBy { get; set; }
 
-    public virtual Order Order { get; set; } = null!;
-
     public virtual Product Product { get; set; } = null!;
+
+    public virtual User User { get; set; } = null!;
 }

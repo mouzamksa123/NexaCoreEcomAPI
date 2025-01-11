@@ -9,10 +9,10 @@ namespace App.ApplicationLayer.Interface
 {
     public interface IBrandBusiness
     {
-        Task<IEnumerable<BrandModel>> GetAllBrandsAsync();
-        Task<BrandModel> GetBrandByIdAsync(int id);
-        Task<BrandModel> CreateBrandAsync(BrandModel BrandDto);
-        Task<BrandModel> UpdateBrandAsync(BrandModel BrandDto);
+        Task<IEnumerable<BrandDTO>> GetAllBrandsAsync();
+        Task<BrandDTO> GetBrandByIdAsync(int id);
+        Task<BrandDTO> CreateBrandAsync(BrandDTO BrandDto);
+        Task<BrandDTO> UpdateBrandAsync(BrandDTO BrandDto);
         Task<bool> DeleteBrandAsync(int id);
     }
 }

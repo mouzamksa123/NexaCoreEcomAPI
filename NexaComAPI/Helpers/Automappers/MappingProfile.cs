@@ -10,8 +10,8 @@ namespace NexaComAPI.Helpers.Automappers
         {
             CreateMap<User, UserRegistrationModel>().ReverseMap(); 
             CreateMap<Role, RoleModel>().ReverseMap(); 
-            CreateMap<Brand, BrandModel>().ReverseMap(); 
-            CreateMap<Category, CateogryModel>().ReverseMap(); 
+            CreateMap<Brand, BrandDTO>().ReverseMap(); 
+            CreateMap<Category, CategoryDTO>().ReverseMap(); 
             CreateMap<Product, ProductModel>().ReverseMap(); 
         }       
     }

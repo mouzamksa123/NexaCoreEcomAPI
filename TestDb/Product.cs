@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TestDb.Models;
+namespace TestDb;
 
 public partial class Product
 {
@@ -32,10 +32,6 @@ public partial class Product
     public int CreatedBy { get; set; }
 
     public int UpdatedBy { get; set; }
-
-    public virtual Brand Brand { get; set; } = null!;
-
-    public virtual Category Category { get; set; } = null!;
 
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 

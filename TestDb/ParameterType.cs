@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TestDb.Models;
+namespace TestDb;
 
 public partial class ParameterType
 {
@@ -13,7 +13,7 @@ public partial class ParameterType
 
     public bool? IsAcitve { get; set; }
 
-    public DateOnly? CreateOn { get; set; }
+    public DateTime? CreateOn { get; set; }
 
     public int? CreatedBy { get; set; }
 

@@ -56,12 +56,12 @@ namespace NexaComAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> CreateCategory([FromBody] CateogryModel CategoryDto)
+        public async Task<IActionResult> CreateCategory([FromBody] CategoryDTO CategoryDto)
         {
             var result = await _CategoryBusiness.CreateCategoryAsync(CategoryDto);
             if (result != null)
             {
-                return CreatedAtAction(nameof(GetCategoryById), new { id = CategoryDto.CategoryId }, CategoryDto);
+                return CreatedAtAction(nameof(GetCategoryById), new { id = CategoryDto.Id }, CategoryDto);
             }
             return BadRequest();
         }
@@ -75,9 +75,9 @@ namespace NexaComAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> UpdateCategory(int id, [FromBody] CateogryModel CategoryDto)
+        public async Task<IActionResult> UpdateCategory(int id, [FromBody] CategoryDTO CategoryDto)
         {
-            if (id != CategoryDto.CategoryId)
+            if (id != CategoryDto.Id)
             {
                 return BadRequest();
             }

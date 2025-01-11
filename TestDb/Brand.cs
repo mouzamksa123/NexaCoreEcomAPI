@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace App.DataAccessLayer.Entities;
+namespace TestDb;
 
 public partial class Brand
-{ 
+{
     public int Id { get; set; }
 
     public string Name { get; set; } = null!;

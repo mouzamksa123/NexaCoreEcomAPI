@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace App.DataAccessLayer.Entities;
+namespace TestDb;
 
 public partial class Category
 {

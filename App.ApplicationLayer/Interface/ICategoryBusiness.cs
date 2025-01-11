@@ -9,10 +9,10 @@ namespace App.ApplicationLayer.Interface
 {
     public interface ICategoryBusiness
     {
-        Task<IEnumerable<CateogryModel>> GetAllCategorysAsync();
-        Task<CateogryModel> GetCategoryByIdAsync(int id);
-        Task<CateogryModel> CreateCategoryAsync(CateogryModel CategoryDto);
-        Task<CateogryModel> UpdateCategoryAsync(CateogryModel CategoryDto);
+        Task<IEnumerable<CategoryDTO>> GetAllCategorysAsync();
+        Task<CategoryDTO> GetCategoryByIdAsync(int id);
+        Task<CategoryDTO> CreateCategoryAsync(CategoryDTO CategoryDto);
+        Task<CategoryDTO> UpdateCategoryAsync(CategoryDTO CategoryDto);
         Task<bool> DeleteCategoryAsync(int id);
     }
 }

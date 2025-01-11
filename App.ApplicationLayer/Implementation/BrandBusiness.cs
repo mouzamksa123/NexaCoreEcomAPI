@@ -22,30 +22,30 @@ namespace App.ApplicationLayer.Implementation
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<BrandModel>> GetAllBrandsAsync()
+        public async Task<IEnumerable<BrandDTO>> GetAllBrandsAsync()
         {
             var Brands = await _brandRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<BrandModel>>(Brands);
+            return _mapper.Map<IEnumerable<BrandDTO>>(Brands);
         }
 
-        public async Task<BrandModel> GetBrandByIdAsync(int id)
+        public async Task<BrandDTO> GetBrandByIdAsync(int id)
         {
             var Brand = await _brandRepository.GetByIdAsync(id);
-            return _mapper.Map<BrandModel>(Brand);
+            return _mapper.Map<BrandDTO>(Brand);
         }
 
-        public async Task<BrandModel> CreateBrandAsync(BrandModel BrandDto)
+        public async Task<BrandDTO> CreateBrandAsync(BrandDTO BrandDto)
         {
             var Brand = _mapper.Map<Brand>(BrandDto);
             var savedBrand = await _brandRepository.AddAsync(Brand);
-            return _mapper.Map<BrandModel>(savedBrand);
+            return _mapper.Map<BrandDTO>(savedBrand);
         }
 
-        public async Task<BrandModel> UpdateBrandAsync(BrandModel BrandDto)
+        public async Task<BrandDTO> UpdateBrandAsync(BrandDTO BrandDto)
         {
             var Brand = _mapper.Map<Brand>(BrandDto);
             var res = await _brandRepository.UpdateAsync(Brand);
-            return _mapper.Map<BrandModel>(res);
+            return _mapper.Map<BrandDTO>(res);
         }
 
         public async Task<bool> DeleteBrandAsync(int id)

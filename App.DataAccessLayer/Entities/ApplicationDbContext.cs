@@ -18,8 +18,9 @@ namespace App.DataAccessLayer.Entities
             : base(options)
         {
         }
-
         public virtual DbSet<Address> Addresses { get; set; }
+
+        public virtual DbSet<Attachment> Attachments { get; set; }
 
         public virtual DbSet<Brand> Brands { get; set; }
 
@@ -39,11 +40,14 @@ namespace App.DataAccessLayer.Entities
 
         public virtual DbSet<ProductImage> ProductImages { get; set; }
 
+        public virtual DbSet<RedirectLink> RedirectLinks { get; set; }
+
         public virtual DbSet<Review> Reviews { get; set; }
 
         public virtual DbSet<Role> Roles { get; set; }
 
         public virtual DbSet<User> Users { get; set; }
+
 
         public async Task<int> SaveChangesAsync()
         {
@@ -58,22 +62,117 @@ namespace App.DataAccessLayer.Entities
         {
             modelBuilder.Entity<Address>(entity =>
             {
-                entity.HasIndex(e => e.UserId, "IX_Addresses_UserId");
-
                 entity.HasOne(d => d.User).WithMany(p => p.Addresses).HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<Attachment>(entity =>
+            {
+                entity.HasKey(e => e.Id).HasName("PK__Attachme__3214EC0775C41B7E");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.AssetUrl)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+                entity.Property(e => e.CollectionName)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+                entity.Property(e => e.ConversionsDisk)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+                entity.Property(e => e.DeletedAt).HasColumnType("datetime");
+                entity.Property(e => e.Disk)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+                entity.Property(e => e.FileName)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+                entity.Property(e => e.MimeType)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+                entity.Property(e => e.Name)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+                entity.Property(e => e.OriginalUrl)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+                entity.Property(e => e.Size)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+                entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<Brand>(entity =>
+            {
+                entity.HasKey(e => e.Id).HasName("PK__Brand__3214EC072A3C5887");
+
+                entity.ToTable("Brand");
+
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+                entity.Property(e => e.DeletedAt).HasColumnType("datetime");
+                entity.Property(e => e.MetaDescription).HasMaxLength(500);
+                entity.Property(e => e.MetaTitle).HasMaxLength(255);
+                entity.Property(e => e.Name).HasMaxLength(255);
+                entity.Property(e => e.Slug).HasMaxLength(255);
+                entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
+
+                entity.HasOne(d => d.BrandBanner).WithMany(p => p.BrandBrandBanners)
+                    .HasForeignKey(d => d.BrandBannerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Brand_Attachments");
+
+                entity.HasOne(d => d.BrandImage).WithMany(p => p.BrandBrandImages)
+                    .HasForeignKey(d => d.BrandImageId)
+                    .HasConstraintName("FK_Brand_Attachments1");
+
+                entity.HasOne(d => d.BrandMetaImage).WithMany(p => p.BrandBrandMetaImages)
+                    .HasForeignKey(d => d.BrandMetaImageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Brand_Attachments2");
             });
 
             modelBuilder.Entity<Category>(entity =>
             {
-                entity.HasIndex(e => e.ParentCategoryId, "IX_Categories_ParentCategoryId");
+                entity.HasKey(e => e.Id).HasName("PK__Category__3214EC078C25F8EF");
 
-                entity.HasOne(d => d.ParentCategory).WithMany(p => p.InverseParentCategory).HasForeignKey(d => d.ParentCategoryId);
+                entity.ToTable("Category");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.CommissionRate).HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+                entity.Property(e => e.DeletedAt).HasColumnType("datetime");
+                entity.Property(e => e.Description).HasColumnType("text");
+                entity.Property(e => e.MetaDescription).HasColumnType("text");
+                entity.Property(e => e.MetaTitle)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+                entity.Property(e => e.Name)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+                entity.Property(e => e.Slug)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+                entity.Property(e => e.Type)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+                entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
+
+                entity.HasOne(d => d.CategoryIcon).WithMany(p => p.CategoryCategoryIcons)
+                    .HasForeignKey(d => d.CategoryIconId)
+                    .HasConstraintName("FK_Category_Attachments");
+
+                entity.HasOne(d => d.CategoryImage).WithMany(p => p.CategoryCategoryImages)
+                    .HasForeignKey(d => d.CategoryImageId)
+                    .HasConstraintName("FK_Category_Attachments1");
+
+                entity.HasOne(d => d.CategoryMetaImage).WithMany(p => p.CategoryCategoryMetaImages)
+                    .HasForeignKey(d => d.CategoryMetaImageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Category_Attachments2");
             });
 
             modelBuilder.Entity<Order>(entity =>
             {
-                entity.HasIndex(e => e.UserId, "IX_Orders_UserId");
-
                 entity.Property(e => e.TotalAmount).HasColumnType("decimal(18, 2)");
 
                 entity.HasOne(d => d.User).WithMany(p => p.Orders).HasForeignKey(d => d.UserId);
@@ -81,10 +180,6 @@ namespace App.DataAccessLayer.Entities
 
             modelBuilder.Entity<OrderItem>(entity =>
             {
-                entity.HasIndex(e => e.OrderId, "IX_OrderItems_OrderId");
-
-                entity.HasIndex(e => e.ProductId, "IX_OrderItems_ProductId");
-
                 entity.Property(e => e.PricePerUnit).HasColumnType("decimal(18, 2)");
 
                 entity.HasOne(d => d.Order).WithMany(p => p.OrderItems).HasForeignKey(d => d.OrderId);
@@ -113,6 +208,7 @@ namespace App.DataAccessLayer.Entities
             {
                 entity.ToTable("ParameterType");
 
+                entity.Property(e => e.CreateOn).HasColumnType("datetime");
                 entity.Property(e => e.ParameterTypeName)
                     .HasMaxLength(200)
                     .IsUnicode(false);
@@ -121,40 +217,38 @@ namespace App.DataAccessLayer.Entities
 
             modelBuilder.Entity<Payment>(entity =>
             {
-                entity.HasIndex(e => e.OrderId, "IX_Payments_OrderId").IsUnique();
-
-                entity.HasOne(d => d.Order).WithOne(p => p.Payment).HasForeignKey<Payment>(d => d.OrderId);
+                entity.HasOne(d => d.Order).WithMany(p => p.Payments).HasForeignKey(d => d.OrderId);
             });
 
             modelBuilder.Entity<Product>(entity =>
             {
-                entity.HasIndex(e => e.BrandId, "IX_Products_BrandId");
-
-                entity.HasIndex(e => e.CategoryId, "IX_Products_CategoryId");
-
                 entity.Property(e => e.Discount).HasColumnType("decimal(18, 2)");
                 entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
-
-                entity.HasOne(d => d.Brand).WithMany(p => p.Products).HasForeignKey(d => d.BrandId);
-
-                entity.HasOne(d => d.Category).WithMany(p => p.Products).HasForeignKey(d => d.CategoryId);
             });
 
             modelBuilder.Entity<ProductImage>(entity =>
             {
                 entity.HasKey(e => e.ImageId);
 
-                entity.HasIndex(e => e.ProductId, "IX_ProductImages_ProductId");
-
                 entity.HasOne(d => d.Product).WithMany(p => p.ProductImages).HasForeignKey(d => d.ProductId);
+            });
+
+            modelBuilder.Entity<RedirectLink>(entity =>
+            {
+                entity.HasKey(e => e.Link).HasName("PK__Redirect__A26923802C4CB3E9");
+
+                entity.ToTable("RedirectLink");
+
+                entity.Property(e => e.Link)
+                    .ValueGeneratedNever()
+                    .HasColumnName("link");
+                entity.Property(e => e.Linktype)
+                    .HasMaxLength(500)
+                    .HasColumnName("linktype");
             });
 
             modelBuilder.Entity<Review>(entity =>
             {
-                entity.HasIndex(e => e.ProductId, "IX_Reviews_ProductId");
-
-                entity.HasIndex(e => e.UserId, "IX_Reviews_UserId");
-
                 entity.HasOne(d => d.Product).WithMany(p => p.Reviews).HasForeignKey(d => d.ProductId);
 
                 entity.HasOne(d => d.User).WithMany(p => p.Reviews).HasForeignKey(d => d.UserId);
