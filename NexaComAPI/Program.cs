@@ -47,6 +47,17 @@ builder.Services.AddSwaggerGen(options =>
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Add CORS policy to allow all origins
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddBusinessDependencies(builder.Configuration);
 builder.Services.AddServiceDependencies(builder.Configuration);
 builder.Services.AddRepositoryDependencies(builder.Configuration);
