@@ -24,7 +24,7 @@ namespace App.CommonLayer.DTOModels
             public int? CategoryIconId { get; set; }
             public double? CommissionRate { get; set; }
             public List<CategoryDTO> Subcategories { get; set; }
-            public int CategoryMetaImageId { get; set; }
+            public int? CategoryMetaImageId { get; set; }
             public AttachmentDTO CategoryMetaImage { get; set; }
             public string MetaTitle { get; set; }
             public string MetaDescription { get; set; }

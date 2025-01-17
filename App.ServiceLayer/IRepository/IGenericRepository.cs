@@ -13,5 +13,7 @@ namespace App.ServiceLayer.IRepository
         Task<T> AddAsync(T entity);
         Task<T> UpdateAsync(T entity);
         Task DeleteAsync(int id);
+
+        Task<IEnumerable<T>> GetAllAsync(Func<IQueryable<T>, IQueryable<T>> includes = null);
     }
 }

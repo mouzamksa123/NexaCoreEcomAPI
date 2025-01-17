@@ -23,7 +23,7 @@ public partial class Category
 
     public decimal? CommissionRate { get; set; }
 
-    public int CategoryMetaImageId { get; set; }
+    public int? CategoryMetaImageId { get; set; }
 
     public string? MetaTitle { get; set; }
 

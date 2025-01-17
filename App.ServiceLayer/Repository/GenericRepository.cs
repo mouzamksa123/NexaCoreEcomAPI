@@ -55,6 +55,18 @@ namespace App.ServiceLayer.Repository
             }
         }
 
-        
+        public async Task<IEnumerable<T>> GetAllAsync(Func<IQueryable<T>, IQueryable<T>> includes = null)
+        {
+            IQueryable<T> query = _dbSet;
+
+            if (includes != null)
+            {
+                query = includes(query);
+            }
+
+            return await query.ToListAsync();
+        }
+
+
     }
 }

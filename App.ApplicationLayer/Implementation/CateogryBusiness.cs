@@ -3,6 +3,7 @@ using App.CommonLayer.DTOModels;
 using App.DataAccessLayer.Entities;
 using App.ServiceLayer.IRepository;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace App.ApplicationLayer.Implementation
 
         public async Task<IEnumerable<CategoryDTO>> GetAllCategorysAsync()
         {
-            var Categorys = await _categoryRepository.GetAllAsync();
+            var Categorys = await _categoryRepository.GetAllAsync(query => query.Include(p => p.CategoryImage).Include(x=>x.CategoryIcon).Include(y=>y.CategoryMetaImage)); ;
             return _mapper.Map<IEnumerable<CategoryDTO>>(Categorys);
         }
 
